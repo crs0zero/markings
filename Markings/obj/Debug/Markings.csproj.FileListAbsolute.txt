@@ -15,3 +15,4 @@ c:\users\cstevens34\gtri\Markings\Markings\bin\Microsoft.AI.WindowsServer.xml
 c:\users\cstevens34\gtri\Markings\Markings\bin\Microsoft.ApplicationInsights.xml
 c:\users\cstevens34\gtri\Markings\Markings\obj\Debug\Markings.dll
 c:\users\cstevens34\gtri\Markings\Markings\obj\Debug\Markings.pdb
+C:\Users\cstevens34\gtri\Markings\Markings\obj\Debug\Markings.csprojResolveAssemblyReference.cache

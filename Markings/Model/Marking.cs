@@ -34,7 +34,7 @@ namespace Markings.Model
                 new System.Data.SqlClient.SqlParameter("@ID", id),
                 new System.Data.SqlClient.SqlParameter("@LABEL", label),
             };
-            if ((int)Database.exec("INSERT INTO Marking (Id, Label) VALUES (@ID, @LABEL)", args) > 0)
+            if ((int)Database.exec("INSERT INTO Markings (Id, Label) VALUES (@ID, @LABEL)", args) > 0)
                 return new Marking(id, label);
             return null;
         }
@@ -49,7 +49,7 @@ namespace Markings.Model
         public static Marking[] List(int offset = 0, int pagesize = 0)
         {
             System.Data.SqlClient.SqlParameter[] args = new System.Data.SqlClient.SqlParameter[0];
-            string sql = Database.paginate("SELECT * FROM Marking ORDER BY Label", offset, pagesize, ref args);
+            string sql = Database.paginate("SELECT * FROM Markings ORDER BY Label", offset, pagesize, ref args);
             System.Data.DataTable data = (System.Data.DataTable)Database.query(sql, args);
             Marking[] list = new Marking[data.Rows.Count];
             for (int i = 0; i < data.Rows.Count; i++)
@@ -61,8 +61,8 @@ namespace Markings.Model
 
         public static Marking Load(Guid id)
         {
-            System.Data.SqlClient.SqlParameter[] args = { new System.Data.SqlClient.SqlParameter("@MAKRINGID", id) };
-            System.Data.DataTable data= (System.Data.DataTable)Database.query("SELECT * FROM Marking WHERE Id = @MARKINGID", args);
+            System.Data.SqlClient.SqlParameter[] args = { new System.Data.SqlClient.SqlParameter("@MARKINGID", id) };
+            System.Data.DataTable data= (System.Data.DataTable)Database.query("SELECT * FROM Markings WHERE Id = @MARKINGID", args);
 
             if (data.Rows.Count == 1)
             {

@@ -56,6 +56,7 @@ namespace Markings.Model
             RowsetQuery,
         }
 
+        /*
         public static string paginate(string sql, int offset, int pagesize, ref SqlParameter[] parameters)
         {
             if (pagesize > 0)
@@ -64,6 +65,22 @@ namespace Markings.Model
                 Array.Resize<System.Data.SqlClient.SqlParameter>(ref parameters, parameters.Length + 2);
                 parameters[parameters.Length - 2] = new System.Data.SqlClient.SqlParameter("@OFFSET", offset);
                 parameters[parameters.Length - 1] = new System.Data.SqlClient.SqlParameter("@PAGESIZE", pagesize);
+            }
+            return sql;
+        }
+        */
+        
+        public static string paginate(string sql, int offset, int pagesize, ref SqlParameter[] parameters)
+        {
+            if (pagesize > 0)
+            {
+                string order = sql.Substring(sql.IndexOf("ORDER BY", StringComparison.InvariantCultureIgnoreCase));
+                sql = sql.Substring(0, sql.IndexOf("ORDER BY", StringComparison.InvariantCultureIgnoreCase));
+                sql = sql.Replace("SELECT", "SELECT ROW_NUMBER() OVER (" + order + ") as RowId,");
+                sql = "SELECT * FROM (" + sql + ") SQ WHERE SQ.RowId BETWEEN @ROW_START AND @ROW_END";
+                Array.Resize<System.Data.SqlClient.SqlParameter>(ref parameters, parameters.Length + 2);
+                parameters[parameters.Length - 2] = new System.Data.SqlClient.SqlParameter("@ROW_START", offset + 1);
+                parameters[parameters.Length - 1] = new System.Data.SqlClient.SqlParameter("@ROW_END", offset + pagesize);
             }
             return sql;
         }
