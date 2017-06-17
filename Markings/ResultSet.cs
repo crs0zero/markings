@@ -24,6 +24,12 @@ namespace Markings
             items = new List<T>(1);
             items.Add(obj);
         }
+        public ResultSet(System.Collections.Generic.List<T> results)
+        {
+            count = results.Count;
+            total_items = count;
+            items = results;
+        }
         public ResultSet(System.Collections.Generic.List<T> results, int total)
         {
             total_items = total;

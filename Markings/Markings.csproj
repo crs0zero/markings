@@ -91,6 +91,7 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Services\Marking.svc" />
+    <Content Include="Services\UserMarking.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -101,11 +102,16 @@
     </Compile>
     <Compile Include="Model\Database.cs" />
     <Compile Include="Model\Marking.cs" />
+    <Compile Include="Model\UserMarking.cs" />
     <Compile Include="ResultSet.cs" />
     <Compile Include="Services\IMarking.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IUserMarking.cs" />
     <Compile Include="Services\Marking.svc.cs">
       <DependentUpon>Marking.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Services\UserMarking.svc.cs">
+      <DependentUpon>UserMarking.svc</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />
