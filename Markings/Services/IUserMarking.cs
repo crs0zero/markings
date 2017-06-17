@@ -13,7 +13,7 @@ namespace Markings.Services
     public interface IUserMarking
     {
         [OperationContract]
-        [WebGet(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, UriTemplate = "get/{userid}")]
+        [WebGet(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, UriTemplate = "get?userid={userid}")]
         ResultSet<Model.UserMarking> Get(string userid);
     }
 }
