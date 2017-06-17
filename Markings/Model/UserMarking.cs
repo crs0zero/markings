@@ -34,7 +34,7 @@ namespace Markings.Model
                 new System.Data.SqlClient.SqlParameter("@USERID", userid),
                 new System.Data.SqlClient.SqlParameter("@MARKING", marking_id),
             };
-            if ((int)Database.exec("INSERT INTO Markings (UserId, MarkingId) VALUES (@USERID, @MARKING)", args) > 0)
+            if ((int)Database.exec("INSERT INTO UserMarkings (UserId, MarkingId) VALUES (@USERID, @MARKING)", args) > 0)
                 return new UserMarking(userid, marking_id);
             return null;
         }
@@ -42,7 +42,7 @@ namespace Markings.Model
         public static int Count(string userid)
         {
             System.Data.SqlClient.SqlParameter[] args = { new System.Data.SqlClient.SqlParameter("@USERID", userid) };
-            return (int)Database.query_value("SELECT Count(*) FROM UserMarking where UserId = @USERID");
+            return (int)Database.query_value("SELECT Count(*) FROM UserMarkings where UserId = @USERID");
         }
 
         // lists assets that are found within a scanset
@@ -65,7 +65,7 @@ namespace Markings.Model
         public static UserMarking[] Load(string userid)
         {
             System.Data.SqlClient.SqlParameter[] args = { new System.Data.SqlClient.SqlParameter("@USERID", userid) };
-            System.Data.DataTable data= (System.Data.DataTable)Database.query("SELECT * FROM UserMarking where UserId = @USERID", args);
+            System.Data.DataTable data= (System.Data.DataTable)Database.query("SELECT * FROM UserMarkings where UserId = @USERID", args);
             if (data.Rows.Count > 0)
             {
                 UserMarking[] markings = new UserMarking[data.Rows.Count];
