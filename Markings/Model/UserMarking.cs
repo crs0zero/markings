@@ -65,7 +65,7 @@ namespace Markings.Model
         public static UserMarking[] Load(string userid)
         {
             System.Data.SqlClient.SqlParameter[] args = { new System.Data.SqlClient.SqlParameter("@USERID", userid) };
-            System.Data.DataTable data= (System.Data.DataTable)Database.query("SELECT * FROM UserMarking where UserId = @USERID");
+            System.Data.DataTable data= (System.Data.DataTable)Database.query("SELECT * FROM UserMarking where UserId = @USERID", args);
             if (data.Rows.Count > 0)
             {
                 UserMarking[] markings = new UserMarking[data.Rows.Count];
