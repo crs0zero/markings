@@ -69,7 +69,7 @@ namespace Markings.Model
                 data = (System.Data.DataTable)Database.query("SELECT * FROM [File] WHERE Parent = @PARENT ORDER BY Name", args);
             }
             else
-                data = (System.Data.DataTable)Database.query("SELECT * FROM [File] WHERE Parent IS NULL ORDER BY Name");
+                data = (System.Data.DataTable)Database.query("SELECT * FROM [File] ORDER BY Name");
             File[] list = new File[data.Rows.Count];
             for (int i = 0; i < data.Rows.Count; i++)
             {

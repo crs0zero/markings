@@ -20,7 +20,7 @@ namespace Markings.Services
         public ResultSet<Model.File> List(string id)
         {
             Guid? folderid = null;
-            if (id != "null")
+            if (id != "null" && id != "all")
             {
                 folderid = Guid.Parse(id);
             }
