@@ -19,7 +19,12 @@ namespace Markings.Services
 
         public ResultSet<Model.File> List(string id)
         {
-            return new ResultSet<Model.File>(Model.File.List(Guid.Parse(id)).ToList<Model.File>());
+            Guid? folderid = null;
+            if (id != "null")
+            {
+                folderid = Guid.Parse(id);
+            }
+            return new ResultSet<Model.File>(Model.File.List(folderid).ToList<Model.File>());
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Markings.Model
         Guid id;
 
         [System.Runtime.Serialization.DataMember]
-        Guid parent;
+        Guid? parent;
 
         [System.Runtime.Serialization.DataMember]
         string name;
@@ -25,7 +25,10 @@ namespace Markings.Model
         {
             id = (Guid)record["Id"];
             name = (string)record["Name"];
-            parent = (Guid)record["Parent"];
+            if (record["Parent"].GetType() == typeof(System.DBNull))
+                parent = null;
+            else
+                parent = (Guid)record["Parent"];
             marking_id = (Guid)record["MarkingId"];
         }
 
@@ -57,12 +60,16 @@ namespace Markings.Model
 
         // lists assets that are found within a scanset
         // this may need to be refactored to utilize paging operations but for now just return the entire list
-        public static File[] List(Guid folderid)
+        public static File[] List(Guid? folderid)
         {
-            System.Data.SqlClient.SqlParameter[] args = { new System.Data.SqlClient.SqlParameter("@PARENT", folderid) };
-            //string sql = Database.paginate("SELECT * FROM File ORDER BY Name", offset, pagesize, ref args);
-            // System.Data.DataTable data = (System.Data.DataTable)Database.query(sql, args);
-            System.Data.DataTable data = (System.Data.DataTable)Database.query("SELECT * FROM File WHERE Parent = @PARENT ORDER BY Name", args);
+            System.Data.DataTable data;
+            if (folderid != null)
+            {
+                System.Data.SqlClient.SqlParameter[] args = { new System.Data.SqlClient.SqlParameter("@PARENT", folderid) };
+                data = (System.Data.DataTable)Database.query("SELECT * FROM [File] WHERE Parent = @PARENT ORDER BY Name", args);
+            }
+            else
+                data = (System.Data.DataTable)Database.query("SELECT * FROM [File] WHERE Parent IS NULL ORDER BY Name");
             File[] list = new File[data.Rows.Count];
             for (int i = 0; i < data.Rows.Count; i++)
             {
