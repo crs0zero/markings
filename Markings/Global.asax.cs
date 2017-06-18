@@ -23,7 +23,10 @@ namespace Markings
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
-
+            HttpContext context = base.Context;
+            HttpResponse response = context.Response;
+            Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
+            Response.Cache.SetNoStore();
         }
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)
